@@ -1,3 +1,8 @@
 import { Routes } from '@angular/router';
 
-export const routes: Routes = [];
+export const AppRoutes: Routes = [
+  {
+    path:'register',
+   loadChildren:()=>import('./auth/auth.route').then(m =>m.registerRoute)
+  }
+];
