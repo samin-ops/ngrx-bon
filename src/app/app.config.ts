@@ -5,13 +5,18 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { provideState, provideStore } from '@ngrx/store';
 import{provideStoreDevtools} from '@ngrx/store-devtools'
 import { authFeatureKey, authReducer } from './auth/store/reducers';
+import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideEffects } from '@ngrx/effects';
+import * as authEffects  from '../app/auth/store/effects'
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
+    provideHttpClient(withFetch()),//
      provideRouter(AppRoutes), provideClientHydration(),
      provideStore(),// on branche le store
      provideState(authFeatureKey, authReducer), // il prends les keys de reducer
+     provideEffects(authEffects), // effects
      provideStoreDevtools({
       maxAge: 25,
       logOnly: isDevMode(),
